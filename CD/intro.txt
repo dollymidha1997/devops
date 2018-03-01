@@ -1,0 +1,492 @@
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+Introducing Continuous Delivery
+
+    problem : how to release the implemented code quickly and safely?
+
+    traditional-approach :
+
+        - leads to the disappointment of both developers and clients. 
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+What is Continuous Delivery?        
+
+by  'Jez Humbl' 
+
+    "Continuous Delivery is the ability to get changes of all 
+    types—including new features,
+    configuration changes, bug fixes, and experiments—into production, 
+    or into the hands of users, safely and quickly in a sustainable way."
+
+    e.g email-client application , new feature sort mails by size 
+
+    The CD approach addresses that issue by automating manual tasks
+    so that the user could receive a new feature as soon as it's implemented.
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+The traditional delivery process
+
+     ref : 1-release cycle.png
+
+     a. Development:
+
+         - developers + business analyst  work together
+         - Agile techniques ( scrum or kanban ) 
+                -used to increase the development velocity and to improve the communication with the client. 
+         - TDD or XE
+
+     b. Quality Assurance (QA) or User Acceptance Testing (UAT):    
+
+         - Integration Testing, 
+           Acceptance Testing, 
+           and Non-functional Testing (performance, recovery, security, and so on)
+
+     c. Operations:
+
+         - release and monitor the production. 
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+Shortcomings of the traditional delivery process
+
+
+        - Slow delivery
+        - Long feedback cycle
+        - Lack of automation => Rare releases don't encourage the automation, which leads to unpredictable releases.
+        - Stress  => Unpredictable releases are stressful for the operations team
+        - Poor communication =>  leads to the blaming game instead of cooperation.
+        - Shared responsibility => No team takes the responsibility for the product from A to Z.
+
+        - Lower job satisfaction:
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+Benefits of Continuous Delivery
+
+
+we need automation.
+        - automated deployment pipeline or the Continuous Delivery pipeline
+
+
+        - Fast delivery  => the software delivers no revenue until it is in the hands of its users.
+        - Fast feedback cycle
+        - Low-risk releases
+        - Flexible release options
+
+
+
+        "the products delivered continuously have fewer bugs and are better adjusted to the customer's needs."
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+Success stories
+
+    ref: 2-yahoo_and_flickr.png
+
+A release is less risky if:
+
+    - The delta of code changes is small
+    - The process is repeatable
+
+
+    Amazon: In 2011, they announced reaching 11.6 seconds (on average) between deployments
+    Facebook: In 2013, they announced deployment of code changes twice a day
+    HubSpot: In 2013, they announced deployment 300 times a day
+    Atlassian: In 2016, they published a survey stating that 65% of their customers practice continuous delivery
+
+
+    https://continuousdelivery.com/evidence-case-studies/.
+
+
+    "remember, the only true measure of progress is the released software."
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+The automated deployment pipeline
+
+
+    ref : 3-automated-deployement-pipeline.png
+
+
+    Each step corresponds to a phase in the traditional delivery process as follows:
+
+
+    1. Continuous Integration: 
+    
+        ==> This checks to make sure that the code written by different developers integrates together
+
+    2. Automated Acceptance Testing: 
+    
+        ==> This replaces the manual QA phase and checks if the features implemented by developers meet the client's requirements    
+
+        ref : The Agile testing matrix.png
+
+        - Acceptance Testing (automated): 
+            These are tests that represent functional requirements seen from the business perspective. They are written in the form of stories or examples by clients and developers to agree on how the software should work.
+        - Unit Testing (automated): 
+            These are tests that help developers to provide the high-quality software and minimize the number of bugs.
+        - Exploratory Testing (manual): 
+            This is the manual black-box testing, which tries to break or improve the system.
+        - Non-functional Testing (automated): 
+            These are tests that represent system properties related to the performance, scalability, security, and so on.
+
+        ref : The testing pyramid.png
+
+
+    3. Configuration Management: 
+    
+        ==> This replaces the manual operations phase-configures the environment and deploys the software
+        ==> Configuration management tools (such as Ansible, Chef, or Puppet) enable storing configuration files in the version control system and tracking every change that was made on the production servers.
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+Prerequisites to Continuous Delivery
+
+
+    Continuous Delivery requirements in three areas
+
+    - Your organization's structure and its impact on the development process
+    - Your products and their technical details
+    - Your development team and the practices you use
+
+
+    A. Organizational prerequisites
+
+        - DevOps culture
+
+            ref : devopsps.png
+
+            Note :
+
+            A DevOps team doesn't necessarily need to consist only of developers. 
+            A very common scenario in many organization's under transformation
+            is to create teams with four developers, one QA, and one person from operations. 
+            They need, however, to work closely together (sit in one area, have stand-ups together, work on the same product).
+
+        - Client in the process
+
+        - Business decisions
+
+
+    B. Technical and development prerequisites
+
+
+        - Automated build, test, package, and deploy operations
+        - Quick pipeline execution
+        - Quick failure recovery
+        - Zero-downtime deployment
+        - Trunk-based development:
+
+        
+ 
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+Building the Continuous Delivery process
+
+
+
+    Introducing tools
+
+        - Docker ecosystem
+        - Jenkins  ==> It helps to create Continuous Integration and Continuous Delivery pipelines 
+        - Ansible / Chef / Puppet
+        - GitHub
+        - Java/Spring Boot/Maven  or Javascript with NPM
+
+
+    Creating a complete Continuous Delivery system 
+
+        1. Introducing Docker
+
+            pic : 7-Docler.png
+
+        2. Configuring Jenkins
+
+            pic : 8-Jenkins.png 
+
+        3. Continuous Integration Pipeline
+
+            pic : 9-CI.png
+
+        4. Automated acceptance testing
+
+            pic : 10-Automated acceptance testing.png       
+
+
+            Docker Registry: After the Continuous Integration phase, the application is packaged first into a JAR file and then as a Docker image. That image is then pushed to the Docker Registry, which acts as a storage for dockerized applications.
+            Docker Host: Before performing the acceptance test suite, the application has to be started. Jenkins triggers a Docker Host machine to pull the dockerized application from the Docker Registry and starts it.
+            Docker Compose: If the complete application consists of more than one Docker container (for example, two web services: Application 1 using Application 2), then Docker Compose helps to run them together.
+            Cucumber: After the application is started on the Docker Host, Jenkins runs a suite of acceptance tests written in the Cucumber framework.
+
+        5. Configuration management with Ansible/Continuous Delivery pipeline
+
+            pic- 11-ansible.png 
+
+        6. Clustering with Docker Swarm/Advanced Continuous Delivery
+
+            pic : 12-cluster.png 
+
+
+      Summary
+
+        The delivery process used currently in most companies has significant shortcomings and can be improved using modern tools for automation
+        The Continuous Delivery approach provides a number of benefits, of which the most significant ones are: fast delivery, fast feedback cycle, and low-risk releases
+        The Continuous Delivery pipeline consists of three stages: Continuous Integration, automated acceptance testing, and configuration management
+        Introducing Continuous Delivery usually requires a change in the organization's culture and structure
+        The most important tools in the context of Continuous Delivery are Docker, Jenkins, and Ansible                 
+
+
+    --------------------------------------------------------------------------------------------------------
+
+
+
+    What is Docker?
+
+
+    Docker is an open source project 
+    designed to help with application deployment using software containers.
+
+
+    
+    "Docker containers wrap a piece of software in a complete filesystem 
+    that contains everything needed to run: 
+    code, runtime, system tools,system libraries - anything 
+    that can be installed on a server. 
+    This guarantees that the software will always run the same, 
+    regardless of its environment."
+
+
+    Docker, therefore, in a similar way as virtualization, 
+    allows packaging an application into an image that can be run everywhere.
+
+
+
+    --------------------------------------------------------------------------------------------------------
+
+
+
+
+    Containerization versus virtualization
+
+
+    Without Docker, isolation and other benefits can be achieved with the use of hardware virtualization,
+    often called virtual machines.
+
+
+    The most popular solutions are VirtualBox, VMware, and Parallels
+
+    A virtual machine emulates a computer architecture and provides the functionality of a physical computer.
+
+    We can achieve complete isolation of applications if each of them is delivered and run as a separate virtual machine image.
+
+    pic - 13-vm.png
+
+
+
+    Virtualization, however, has three significant drawbacks:
+
+
+    - Low performance
+    - High resource consumption: 
+    - Large image size
+
+
+
+
+    The concept of containerization presents a different solution:
+
+
+     pic- 14-docker-container
+
+
+     => It results in better performance and no waste of resources. 
+
+
+     The need for Docker
+
+
+     - Environment
+     - Isolation
+     - Organizing applications
+     - Portability
+
+
+
+    --------------------------------------------------------------------------------------------------------
+
+
+
+        Docker installation
+
+
+        - demo
+
+
+
+    --------------------------------------------------------------------------------------------------------
+
+
+    Running Docker hello world>
+
+        
+        - demo
+
+        pic - 15-docker-hello-world.png
+
+
+
+    --------------------------------------------------------------------------------------------------------    
+
+
+    Docker client and server
+
+        pic - 16-Docker client and server.png
+
+
+    --------------------------------------------------------------------------------------------------------    
+
+
+    Docker images and containers
+
+        pic - 17-1-container.png
+        pic - 17-2-container.png
+
+    
+    --------------------------------------------------------------------------------------------------------    
+
+
+    Docker applications
+
+
+        - demo 
+
+
+    --------------------------------------------------------------------------------------------------------    
+
+
+    Building images
+
+        - demo
+
+    --------------------------------------------------------------------------------------------------------    
+
+
+     Docker container states   
+
+
+
+        - pic - 18-docker-states.png
+
+    --------------------------------------------------------------------------------------------------------    
+
+
+    Docker networking
+
+        - pic - 19-networking.png 
+
+    --------------------------------------------------------------------------------------------------------    
+
+     Using Docker volumes      
+
+        - pic - 20-docker volume.png 
+
+
+
+
+    Summary:
+
+        The containerization technology addresses the issues of isolation and environment dependencies using the Linux kernel features. This is based on the process separation mechanism, therefore no real performance drop is observed.
+        Docker can be installed on most of the systems but is supported natively only on Linux.
+        Docker allows running applications from the images available on the internet and to build own images.
+        An image is an application packed together with all dependencies.
+        Docker provides two methods for building the images: Dockerfile or committing the container. In most cases, the first option is used.
+        Docker containers can communicate over the network by publishing the ports they expose.
+        Docker containers can share the persistent storage using volumes.
+        For the purpose of convenience, Docker containers should be named, and Docker images should be tagged. In the Docker world, there is a specific convention of how to tag images.
+        Docker images and containers should be cleaned from time to time in order to save the server space and avoid the no space left on device error.
+
+
+
+
+    ------------------------------------------------------------
+
+
+
+     Configuring Jenkins
+
+
+
+    What is Jenkins?
+
+
+
+        the most interesting parts of the Jenkins' characteristics.
+
+
+        - Language agnostic
+        - Extensible by plugins
+        - Portable
+        - Supports most SCM
+        - Distributed
+        - Simplicity
+        - Code-oriented
+
+
+
+
+    Jenkins installation
+    Jenkins hello world
+
+
+
+    Jenkins architecture
+
+        - pic - 21-jenkins arc.png
+
+
+
+
+
+
+
+
