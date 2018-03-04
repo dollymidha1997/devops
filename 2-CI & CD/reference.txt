@@ -313,7 +313,7 @@ What is Docker? :
 -----------------------------------------------------------------------------------------------------------------
 
 
-Containerization versus virtualization:
+Containerization vs virtualization:
 
 
     Without Docker, isolation and other benefits can be achieved with the use of hardware virtualization,
@@ -591,20 +591,13 @@ Containerization versus virtualization:
 
 
 
-    ------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
 
-
-
-     Configuring Jenkins
-
-
+---------------------------------------------------------------------------------------------------------------    
 
     What is Jenkins?
 
-
-
         the most interesting parts of the Jenkins' characteristics.
-
 
         - Language agnostic
         - Extensible by plugins
@@ -614,17 +607,151 @@ Containerization versus virtualization:
         - Simplicity
         - Code-oriented
 
+---------------------------------------------------------------------------------------------------------------
 
-
+---------------------------------------------------------------------------------------------------------------
 
     Jenkins installation
+
+        ==> on docker 
+
+        syntax:
+
+        'docker run -p <host_port>:8080 -v <host_volume>:/var/jenkins_home jenkins:lts '
+
+         Prepare the volume directory & install jenkins
+
+         > mkdir $HOME/jenkins_home
+         > chown 1000 $HOME/jenkins_home
+         > docker run -d -p 8080:8080 -v $HOME/jenkins_home:/var/jenkins_home --name jenkins jenkins/jenkins:lts
+            or
+         > docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --name jenkins jenkins/jenkins:lts  
+         Check if Jenkins is running
+
+         > docker logs jenkins
+
+
+         The Docker-based installation has two major advantages:
+
+            - Failure recovery => If Jenkins crashes, then it's enough to run a new container with the same volume specified.
+            - Custom images => You can configure Jenkins as per your needs and store it as the Jenkins image. Then it can be shared within your organization or team, and there is no need to repeat the same configuration steps all the time, many times.
+
+
+        => Installing without Docker
+
+             refer : https://jenkins.io/download/
+
+---------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------
+
+
     Jenkins hello world
 
 
+        Click on New Item.
+        Enter hello world as the item name, choose Pipeline, and click on OK.
+        There are a lot of options. We will skip them for now and go directly to the Pipeline section.
+        There, in the Script textbox, we can enter the pipeline script:
 
-    Jenkins architecture
+            pipeline {
+                agent any
+                stages {
+                        stage("Hello") {
+                            steps {
+                                echo 'Hello World'
+                            }
+                        }
+                }
+            }
+
+
+        Click on Save.
+        Click on Build Now.
+
+---------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------
+    
+
+    Jenkins architecture :
+
 
         - pic - 21-jenkins arc.png
+
+
+        In a distributed builds environment, the Jenkins master is responsible for:
+
+
+        Receiving build triggers (for example, after a commit to GitHub)
+        Sending notifications (for example, email or HipChat message sent after the build failure)
+        Handling HTTP requests (interaction with clients)
+        Managing the build environment (orchestrating the job executions on slaves)
+
+      - Test and production instances
+
+      - Scalability
+
+            - Vertical scaling
+            - Horizontal scaling
+
+
+        Sample architecture
+
+        -pic - 22-sample-archtecture.png
+
+---------------------------------------------------------------------------------------------------------------
+
+
+    Configuring agents :
+
+        - Communication protocols
+
+            a. SSH: Master connects to slave using the standard SSH protocol. 
+            
+            b. Java Web Start: Java application is started on each agent machine and the TCP connection is established between the Jenkins slave application and the master Java application.      
+
+        - Setting agents
+
+            a. static versus dynamic
+            b. specific versus general-purpose
+
+
+
+            These differences resulted in four common strategies how agents are configured:
+
+                a. Permanent agents ==> pic - 23-permanent agents.png
+                b. Permanent Docker agents pic - 24-permanent Docker agents.png
+                c. Jenkins Swarm agents
+                d. Dynamically provisioned Docker agents
+
+                    Configuring dynamically provisioned Docker agents
+
+
+                        - Open the Manage Jenkins page.
+                        - Click on the Configure System link.
+                        - At the bottom of the page, there is the Cloud section.
+                        - Click on Add a new cloud and choose Docker.
+                        - Fill the Docker agent details.
+
+
+                        - pic - 25-Docker master-slave architecture.png
+
+                            Summary:
+
+                            - When the Jenkins job is started, the master runs a new container from the jenkins-slave image on the slave Docker host.
+                            - The jenkins-slave container is, actually, the ubuntu image with the SSHD server installed.
+                            - The Jenkins master automatically adds the created agent to the agent list (same as what we did manually in the Setting agents section).
+                            - The agent is accessed using the SSH communication protocol to perform the build.
+                            - After the build, the master stops and removes the slave container.
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 
