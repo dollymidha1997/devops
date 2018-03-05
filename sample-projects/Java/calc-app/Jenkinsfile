@@ -2,36 +2,36 @@
 
 pipeline {
     agent any
+    parameters{
+		string(name:'PROJECT_PATH',default:'./sample-projects/Java/calc-app/pom.xm',description:' pom location')         
+    }
+
     stages {
         stage('checkout'){
             steps{
                 git 'https://github.com/nagabhushanamn/devops'
-	                dir('sample-projects/Java/calc-app'){
-			        stage('build: compile'){
-			           steps{
-			               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml clean compile'
-			           }
-			        }   
-			        stage('build: test'){
-			           steps{
-			               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml test'
-			           }
-			        }   
-			         stage('build: package'){
-			           steps{
-			               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml package'
-			               archive 'sample-projects/Java/calc-app/**/*.jar'
-			           }
-			        }   
-                }
-
             }
         }
-        
+        stage('build: compile'){
+           steps{
+               sh "mvn -f ${params.PROJECT_PATH} clean compile"
+           }
+        }   
+        stage('build: test'){
+           steps{
+               sh "mvn -f ${params.PROJECT_PATH} test"
+           }
+        }   
+         stage('build: package'){
+           steps{
+              sh "mvn -f ${params.PROJECT_PATH} clean package"
+              archive "${params.PROJECT_PATH}/**/*.jar"
+           }
+        }   
     }
     post{
         always{
-            junit 'sample-projects/Java/calc-app/**/surefire-*/TEST-*.xml'
+            junit "${PROJECT_PATH}/**/surefire-*/TEST-*.xml"
         }
     }
 
