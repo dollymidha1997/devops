@@ -10,7 +10,7 @@ pipeline {
         }
         stage('build: compile'){
            steps{
-               sh 'mvn compile'
+               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml compile'
            }
 
         }   
