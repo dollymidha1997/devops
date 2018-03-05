@@ -6,24 +6,28 @@ pipeline {
         stage('checkout'){
             steps{
                 git 'https://github.com/nagabhushanamn/devops'
+	                dir('sample-projects/Java/calc-app'){
+			        stage('build: compile'){
+			           steps{
+			               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml clean compile'
+			           }
+			        }   
+			        stage('build: test'){
+			           steps{
+			               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml test'
+			           }
+			        }   
+			         stage('build: package'){
+			           steps{
+			               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml package'
+			               archive 'sample-projects/Java/calc-app/**/*.jar'
+			           }
+			        }   
+                }
+
             }
         }
-        stage('build: compile'){
-           steps{
-               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml clean compile'
-           }
-        }   
-        stage('build: test'){
-           steps{
-               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml test'
-           }
-        }   
-         stage('build: package'){
-           steps{
-               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml package'
-               archive 'sample-projects/Java/calc-app/**/*.jar'
-           }
-        }   
+        
     }
     post{
         always{
