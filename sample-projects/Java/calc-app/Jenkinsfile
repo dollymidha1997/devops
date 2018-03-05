@@ -21,6 +21,7 @@ pipeline {
          stage('build: package'){
            steps{
                sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml package'
+               archive 'sample-projects/Java/calc-app/**/*.jar'
            }
         }   
     }
