@@ -34,7 +34,7 @@ pipeline {
     }
     post{
         always{
-            junit "${params.PROJECT_PATH}/**/surefire-*/TEST-*.xml"
+            junit "sample-projects/Java/calc-app/**/surefire-*/TEST-*.xml"
         }
     }
 
