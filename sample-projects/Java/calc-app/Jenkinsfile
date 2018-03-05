@@ -3,7 +3,7 @@
 pipeline {
     agent any
     parameters{
-		string(name:'PROJECT_PATH',defaultValue:'sample-projects/Java/calc-app/pom.xm',description:' pom location')         
+		string(name:'PROJECT_PATH',defaultValue:'sample-projects/Java/calc-app/pom.xml',description:' pom location')         
     }
 
     stages {
