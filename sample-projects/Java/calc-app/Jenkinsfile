@@ -16,10 +16,15 @@ pipeline {
         stage('build: test'){
            steps{
                sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml test'
-               junit 'sample-projects/Java/calc-app/**/surefire-*/TEST-*.xml'
            }
         }   
     }
+    post{
+        always{
+            junit 'sample-projects/Java/calc-app/**/surefire-*/TEST-*.xml'
+        }
+    }
+
 }
     
     
