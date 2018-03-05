@@ -5,6 +5,9 @@ pipeline {
     parameters{
 		string(name:'PROJECT_PATH',defaultValue:'sample-projects/Java/calc-app/pom.xml',description:' pom location')         
     }
+    tools{
+	maven 'M3'        
+    }
 
     stages {
         stage('checkout'){
@@ -31,7 +34,7 @@ pipeline {
     }
     post{
         always{
-            junit "${PROJECT_PATH}/**/surefire-*/TEST-*.xml"
+            junit "${params.PROJECT_PATH}/**/surefire-*/TEST-*.xml"
         }
     }
 
