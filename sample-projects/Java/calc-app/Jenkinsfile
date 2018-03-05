@@ -7,6 +7,9 @@ pipeline {
             steps{
                 git 'https://github.com/nagabhushanamn/devops'
             }
+        }
+        stage('build: compile'){
+           echo 'compile'
         }   
     }
 }
