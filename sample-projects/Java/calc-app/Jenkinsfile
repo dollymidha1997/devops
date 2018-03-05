@@ -18,6 +18,11 @@ pipeline {
                sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml test'
            }
         }   
+         stage('build: package'){
+           steps{
+               sh 'mvn -f ./sample-projects/Java/calc-app/pom.xml package'
+           }
+        }   
     }
     post{
         always{
