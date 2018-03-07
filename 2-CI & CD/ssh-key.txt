@@ -1,0 +1,24 @@
+
+
+
+In Jenkins Master
+-------------------
+
+ssh-keygen -t rsa -C 'nag@gmail.com'
+
+cat .ssh/id_rsa.pub
+
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbQMGEns2ooUimNx8feufIALhAJgnmfSmREtjnYTau9rA491Gxd3Maiw2J4R/J5+IgOKCb0vcUWBY6YReqKNoEmpAzB882JNbvBqZAFgXmLr0KOHcoC3qGo3RwfcUv6fUxb+VmG8UQQx6qkae68WlCwu6W1OphWXAY9LzpwP1mV09nGJM0IvT7kqLr0tMt0kAdrkU6Y5EDdwRNnSTtEa7hegPx05VwHJM0raaMJv+OmqSpi76fI8bOHVf500dmlGtGROkPToQ+bwnO5jIlvSSmzVL/5cReEv5ePy2PHnqXk8UeJT9axoshEX93KJgp92akYlRfQPHwfkE8grgWyBCF nag@gmail.com"
+
+In Node 1
+------------
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbQMGEns2ooUimNx8feufIALhAJgnmfSmREtjnYTau9rA491Gxd3Maiw2J4R/J5+IgOKCb0vcUWBY6YReqKNoEmpAzB882JNbvBqZAFgXmLr0KOHcoC3qGo3RwfcUv6fUxb+VmG8UQQx6qkae68WlCwu6W1OphWXAY9LzpwP1mV09nGJM0IvT7kqLr0tMt0kAdrkU6Y5EDdwRNnSTtEa7hegPx05VwHJM0raaMJv+OmqSpi76fI8bOHVf500dmlGtGROkPToQ+bwnO5jIlvSSmzVL/5cReEv5ePy2PHnqXk8UeJT9axoshEX93KJgp92akYlRfQPHwfkE8grgWyBCF nag@gmail.com"
+   >> .ssh/authorized_keys
+
+To copy private Key
+--------------------
+
+cat .ssh/id_rsa
+
+
+

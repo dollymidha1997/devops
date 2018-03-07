@@ -1,0 +1,764 @@
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+Introducing Continuous Delivery:
+
+    problem : how to release the implemented code quickly and safely?
+
+    traditional-approach :
+
+        - leads to the disappointment of both developers and clients. 
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+What is Continuous Delivery?        
+
+by  'Jez Humbl' 
+
+    "Continuous Delivery is the ability to get changes of all types
+    including new features,configuration changes, bug fixes, and experiments
+    into production, or into the hands of users, safely and quickly in a sustainable way."
+
+    e.g email-client application , new feature sort mails by size 
+
+    The CD approach addresses that issue by automating manual tasks
+    so that the user could receive a new feature as soon as it's implemented.
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+The traditional delivery process:
+
+     pic : 1-release cycle.png
+
+     a. Development:
+
+         - developers + business analyst  work together
+         - Agile techniques ( scrum or kanban ) 
+                -used to increase the development velocity and 
+                to improve the communication with the client. 
+         - TDD or XE
+
+     b. Quality Assurance (QA) or User Acceptance Testing (UAT):    
+
+         - Integration Testing, 
+           Acceptance Testing, 
+           and Non-functional Testing (performance, recovery, security, and so on)
+
+     c. Operations:
+
+         - release and monitor the production. 
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+Shortcomings of the traditional delivery process:
+
+        - Slow delivery
+        - Long feedback cycle
+        - Lack of automation => Rare releases don't encourage the automation, which leads to unpredictable releases.
+        - Stress  => Unpredictable releases are stressful for the operations team
+        - Poor communication =>  leads to the blaming game instead of cooperation.
+        - Shared responsibility => No team takes the responsibility for the product from A to Z.
+
+        - Lower job satisfaction:
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+Benefits of Continuous Delivery:
+
+        - Fast delivery  => the software delivers no revenue until it is in the hands of its users.
+        - Fast feedback cycle
+        - Low-risk releases
+        - Flexible release options
+
+
+we need automation.
+        - automated deployment pipeline or the Continuous Delivery pipeline
+
+        "the products delivered continuously 
+        have fewer bugs and are better adjusted to the customer's needs."
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+Success stories:
+
+    pic: 2-yahoo_and_flickr.png
+
+A release is less risky if:
+
+    - The delta of code changes is small
+    - The process is repeatable
+
+
+    Amazon   : In 2011, they announced reaching 11.6 seconds (on average) between deployments
+    Facebook : In 2013, they announced deployment of code changes twice a day
+    HubSpot  : In 2013, they announced deployment 300 times a day
+    Atlassian: In 2016, they published a survey stating that 65% of their customers practice continuous delivery
+
+
+    https://continuousdelivery.com/evidence-case-studies/.
+
+
+    "remember, the only true measure of progress is the released software."
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+The automated deployment pipeline
+
+    pic : 3-automated-deployement-pipeline.png
+
+    Each step corresponds to a phase in the traditional delivery process
+    as follows:
+
+    1. Continuous Integration: 
+    
+        ==> This checks to make sure that the code written
+            by different developers integrates together
+
+    2. Automated Acceptance Testing: 
+    
+        ==> This replaces the manual QA phase and checks 
+            if the features implemented by developers meet the client's requirements    
+
+        pic : 4-The Agile testing matrix.png
+
+        - Acceptance Testing (automated): 
+            => These are tests that represent functional requirements seen from the business perspective. They are written in the form of stories or examples by clients and developers to agree on how the software should work.
+        - Unit Testing (automated): 
+            => These are tests that help developers to provide the high-quality software and minimize the number of bugs.
+        - Exploratory Testing (manual): 
+            => This is the manual black-box testing, which tries to break or improve the system.
+        - Non-functional Testing (automated): 
+            => These are tests that represent system properties related to the performance, scalability, security, and so on.
+
+        pic : 5-The testing pyramid.png
+
+
+    3. Configuration Management: 
+    
+        ==> This replaces the manual operations phase-configures 
+            the environment and deploys the software
+        ==> Configuration management tools (such as Ansible, Chef, or Puppet)
+            enable storing configuration files in the version control system and tracking every change that was made on the production servers.
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+Prerequisites to Continuous Delivery:
+
+
+    Continuous Delivery requirements in three areas
+
+    - Your organization's structure and its impact on the development process
+    - Your products and their technical details
+    - Your development team and the practices you use
+
+
+    A. Organizational prerequisites
+
+        - DevOps culture
+
+            pic : 6-devopsps.png
+
+            Note :
+
+            A DevOps team doesn't necessarily need to consist only of developers. 
+            A very common scenario in many organization's under transformation is to create teams with four developers, one QA,
+            and one person from operations. 
+            
+            They need, however, to work closely together (sit in one area, have stand-ups together,
+            work on the same product).
+
+        - Client in the process
+
+        - Business decisions
+
+
+    B. Technical and development prerequisites
+
+
+        - Automated build, test, package, and deploy operations
+        - Quick pipeline execution
+        - Quick failure recovery
+        - Zero-downtime deployment
+        - Trunk-based development:
+
+        
+ 
+-----------------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+Building the Continuous Delivery process
+
+
+    Introducing tools 
+
+        - Docker ecosystem
+        - Jenkins  ==> It helps to create Continuous Integration and Continuous Delivery pipelines 
+        - Ansible / Chef / Puppet
+        - GitHub
+        - Java/Spring Boot/Maven  or Javascript with NPM or Python based application
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+Creating a complete Continuous Delivery system 
+
+        1. Introducing Docker  => pic : 7-Docler.png
+
+        2. Configuring Jenkins => pic : 8-Jenkins.png 
+
+        3. Continuous Integration Pipeline => pic : 9-CI.png
+
+        4. Automated acceptance testing => pic : 10-Automated acceptance testing.png       
+
+        5. Configuration management with Ansible/Continuous Delivery pipeline => pic- 11-ansible.png 
+
+        6. Clustering with Docker Swarm/Advanced Continuous Delivery => pic : 12-cluster.png 
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+    Docker Registry: After the Continuous Integration phase, the application is packaged first into a JAR file and then as a Docker image. That image is then pushed to the Docker Registry, which acts as a storage for dockerized applications.
+    Docker Host: Before performing the acceptance test suite, the application has to be started. Jenkins triggers a Docker Host machine to pull the dockerized application from the Docker Registry and starts it.
+    Docker Compose: If the complete application consists of more than one Docker container (for example, two web services: Application 1 using Application 2), then Docker Compose helps to run them together.
+    Cucumber: After the application is started on the Docker Host, Jenkins runs a suite of acceptance tests written in the Cucumber framework.
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+Summary: 
+
+        The delivery process used currently 
+        in most companies has significant shortcomings
+        and can be improved using modern tools for automation
+
+        The Continuous Delivery approach provides a number of benefits,
+        of which the most significant ones are:
+        fast delivery, fast feedback cycle, and low-risk releases
+
+        The Continuous Delivery pipeline consists of three stages:
+        Continuous Integration, automated acceptance testing,
+        and configuration management
+
+        Introducing Continuous Delivery usually requires a change
+        in the organization's culture and structure
+
+        The most important tools in the context of Continuous Delivery
+        are Docker, Jenkins, and Ansible                 
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+What is Docker? : 
+
+
+    Docker is an open source project 
+    designed to help with application deployment using software containers.
+
+    
+   "Docker containers wrap a piece of software in a complete filesystem 
+    that contains everything needed to run: 
+    code, runtime, system tools,system libraries - anything that can be installed on a server. 
+    This guarantees that the software will always run the same, 
+    regardless of its environment."
+
+
+    Docker, therefore, in a similar way as virtualization, 
+    allows packaging an application into an image that can be run everywhere.
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+Containerization vs virtualization:
+
+
+    Without Docker, isolation and other benefits can be achieved with the use of hardware virtualization,
+    often called virtual machines.
+
+    The most popular solutions are VirtualBox, VMware, and Parallels
+
+    A virtual machine emulates 
+    a computer architecture and provides the functionality of a physical computer.
+
+    We can achieve complete isolation of applications
+    if each of them is delivered and run as a separate virtual machine image.
+
+    pic - 13-vm.png
+
+    Virtualization, however, has three significant drawbacks:
+
+
+    - Low performance
+    - High resource consumption: 
+    - Large image size
+
+
+    The concept of containerization presents a different solution:
+
+     pic- 14-docker-container.png
+
+     => It results in better performance and no waste of resources. 
+
+     The need for Docker
+
+     - Environment
+     - Isolation
+     - Organizing applications
+     - Portability
+
+    --------------------------------------------------------------------------------------------------------
+
+    Docker installation: ( in CentOS )
+
+        - demo
+
+        > sudo yum check-update
+        > curl -fsSL https://get.docker.com/ | sh
+        > sudo systemctl start docker
+        > sudo systemctl status docker
+        > sudo systemctl enable docker
+        > sudo usermod -aG docker $(whoami)
+        or
+        > sudo usermod -aG docker username
+        > docker info
+
+    --------------------------------------------------------------------------------------------------------
+
+    Running Docker hello world: 
+        
+        - demo
+
+        > docker run hello-world
+
+        pic - 15-docker-hello-world.png
+
+    Docker client and server
+
+        pic - 16-Docker client and server.png
+
+    Docker images and containers
+
+        pic - 17-1-container.png
+        pic - 17-2-container.png
+
+    
+    --------------------------------------------------------------------------------------------------------    
+
+
+    Docker applications:
+
+        - demo 
+
+        > docker search mongo
+        > docker run mongo
+        
+    Building images:
+
+        - demo
+
+        way-1 : using Docker commit
+
+        > docker run -i -t ubuntu:16.04 /bin/bash  
+        > apt-get update
+        > apt-get install -y git
+        > which git
+        > exit
+        > docker diff <container-id>
+        > docker commit <container-id> ubuntu_with_git  
+        > docker images
+        > docker run -i -t ubuntu_with_git /bin/bash
+        > which git
+        > exit
+
+        > docker run -i -t ubuntu_with_git /bin/bash
+        > apt-get install -y openjdk-8-jdk
+        > exit
+        > docker commit <container-id> ubuntu_with_git_and_jdk
+
+
+       way-2 : using Docker file 
+
+            Create a new directory and a file called Dockerfile with the following content:
+
+                    FROM ubuntu:16.04
+                    RUN apt-get update && \
+                        apt-get install -y python
+
+        > docker build -t ubuntu_with_python .
+        > docker images
+
+
+    Complete Docker application:
+
+        Create a new directory and inside this directory, a hello.py file with the following content:
+
+            print "Hello World from Python!"
+
+
+        Prepare the environment
+
+            what base image should be used
+            (optionally) who the maintainer is
+            how to install the Python interpreter
+            how to include  hello.py in the image
+            how to start the application            
+
+        In the same directory, create the Dockerfile:
+
+            FROM ubuntu:16.04
+            MAINTAINER Rafal Leszko
+            RUN apt-get update && \
+                apt-get install -y python
+            COPY hello.py .
+            ENTRYPOINT ["python", "hello.py"]
+
+
+            > docker build -t hello_world_python .
+            > docker run hello_world_python
+
+
+    Environment variables
+
+
+           Change the Python script to use the environment variable:
+
+            import os
+            print "Hello World from %s !" % os.environ['NAME']    
+
+            > docker build -t hello_world_python_name .   
+            > docker run -e NAME=Nag hello_world_python_name
+
+            Alternatively, we can define the environment variable value in Dockerfile, for example:
+
+            ENV NAME Nag
+
+            > docker build -t hello_world_python_name_default .
+            > docker run hello_world_python_name_default
+              
+
+    --------------------------------------------------------------------------------------------------------    
+
+
+     Docker container states
+
+        - pic - 18-docker-states.png
+
+         > docker run -d -t ubuntu:16.04
+         > docker ps
+         > docker ps -a
+         > docker stop <container-id>
+
+    --------------------------------------------------------------------------------------------------------    
+
+
+    Docker networking :
+
+        - pic - 19-networking.png 
+
+        > docker run -d tomcat
+        > docker ps
+        > docker logs <container-id>
+        > docker stop <container-id>
+        > docker run -d -p 8080:8080 tomcat
+        > ifconfig docker0
+        > docker inspect <container-id>
+        > docker network ls
+        
+
+        Automatic port assignment
+
+        > docker run -d -P tomcat
+        
+
+    --------------------------------------------------------------------------------------------------------    
+
+     Using Docker volumes      
+
+        - pic - 20-docker volume.png 
+
+
+        > $ docker run -i -t -v ~/docker_ubuntu:/host_directory ubuntu:16.04 /bin/bash
+        > touch host_directory/file.txt
+        > exit
+        > ls ~/docker_ubuntu/
+        > docker stop <container-id>
+
+        Instead of specifying the volume with the -v flag, it's possible to specify the volume as an instruction in the Dockerfile, for example:
+
+        VOLUME /host_directory
+
+
+    --------------------------------------------------------------------------------------------------------    
+
+
+    Using names in Docker
+
+        > docker run -d --name tomcat tomcat
+        > docker logs tomcat
+
+    Tagging images
+
+        > docker build -t hello-world_python .
+        
+
+        e.g
+
+        <registry_address>/<image_name>:<version>
+
+    --------------------------------------------------------------------------------------------------------    
+
+    Docker cleanup
+
+        Cleaning up containers
+
+        > docker ps -a
+
+        > docker rm <container-id>
+        > docker rm $(docker ps --no-trunc -aq)
+        > docker run --rm hello-world
+
+
+        Cleaning up images
+
+        > docker images
+        > docker rmi <image-id>
+        > docker rmi $(docker images -q)
+        > docker rmi $(docker images -f "dangling=true" -q)
+
+
+
+    --------------------------------------------------------------------------------------------------------    
+
+    docker help
+
+    --------------------------------------------------------------------------------------------------------    
+
+    Summary:
+
+        The containerization technology addresses the issues of isolation and environment dependencies using the Linux kernel features. This is based on the process separation mechanism, therefore no real performance drop is observed.
+        Docker can be installed on most of the systems but is supported natively only on Linux.
+        Docker allows running applications from the images available on the internet and to build own images.
+        An image is an application packed together with all dependencies.
+        Docker provides two methods for building the images: Dockerfile or committing the container. In most cases, the first option is used.
+        Docker containers can communicate over the network by publishing the ports they expose.
+        Docker containers can share the persistent storage using volumes.
+        For the purpose of convenience, Docker containers should be named, and Docker images should be tagged. In the Docker world, there is a specific convention of how to tag images.
+        Docker images and containers should be cleaned from time to time in order to save the server space and avoid the no space left on device error.
+
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------    
+
+    What is Jenkins?
+
+        the most interesting parts of the Jenkins' characteristics.
+
+        - Language agnostic
+        - Extensible by plugins
+        - Portable
+        - Supports most SCM
+        - Distributed
+        - Simplicity
+        - Code-oriented
+
+---------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------
+
+    Jenkins installation
+
+        ==> on docker 
+
+        syntax:
+
+        'docker run -p <host_port>:8080 -v <host_volume>:/var/jenkins_home jenkins:lts '
+
+         Prepare the volume directory & install jenkins
+
+         > mkdir $HOME/jenkins_home
+         > chown 1000 $HOME/jenkins_home
+         > docker run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home --name jenkins jenkins/jenkins:lts
+         
+         Check if Jenkins is running
+
+         > docker logs jenkins
+
+
+         The Docker-based installation has two major advantages:
+
+            - Failure recovery => If Jenkins crashes, then it's enough to run a new container with the same volume specified.
+            - Custom images => You can configure Jenkins as per your needs and store it as the Jenkins image. Then it can be shared within your organization or team, and there is no need to repeat the same configuration steps all the time, many times.
+
+
+        => Installing without Docker
+
+             refer : https://jenkins.io/download/
+
+        
+
+
+---------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------
+
+
+    Jenkins hello world
+
+        Click on New Item.
+        Enter hello world as the item name, choose Pipeline, and click on OK.
+        There are a lot of options. We will skip them for now and go directly to the Pipeline section.
+        There, in the Script textbox, we can enter the pipeline script:
+
+            pipeline {
+                agent any
+                stages {
+                        stage("Hello") {
+                            steps {
+                                echo 'Hello World'
+                            }
+                        }
+                }
+            }
+
+
+        Click on Save.
+        Click on Build Now.
+
+---------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------
+    
+ 
+    Jenkins architecture :
+
+
+        - pic - 21-jenkins arc.png
+
+
+        In a distributed builds environment, the Jenkins master is responsible for:
+
+
+        Receiving build triggers (for example, after a commit to GitHub)
+        Sending notifications (for example, email or HipChat message sent after the build failure)
+        Handling HTTP requests (interaction with clients)
+        Managing the build environment (orchestrating the job executions on slaves)
+
+      - Test and production instances
+
+      - Scalability
+
+            - Vertical scaling
+            - Horizontal scaling
+
+
+        Sample architecture
+
+        -pic - 22-sample-archtecture.png
+
+---------------------------------------------------------------------------------------------------------------
+
+
+    Configuring agents :
+
+        - Communication protocols
+
+            a. SSH: Master connects to slave using the standard SSH protocol. 
+            
+            b. Java Web Start: Java application is started on each agent machine and the TCP connection is established between the Jenkins slave application and the master Java application.      
+
+        - Setting agents
+
+            a. static versus dynamic
+            b. specific versus general-purpose
+
+
+
+            These differences resulted in four common strategies how agents are configured:
+
+                a. Permanent agents ==> pic - 23-permanent agents.png
+                b. Permanent Docker agents pic - 24-permanent Docker agents.png
+                c. Jenkins Swarm agents
+                d. Dynamically provisioned Docker agents
+
+                    Configuring dynamically provisioned Docker agents
+
+
+                        - Open the Manage Jenkins page.
+                        - Click on the Configure System link.
+                        - At the bottom of the page, there is the Cloud section.
+                        - Click on Add a new cloud and choose Docker.
+                        - Fill the Docker agent details.
+
+
+                        - pic - 25-Docker master-slave architecture.png
+
+                            Summary:
+
+                            - When the Jenkins job is started, the master runs a new container from the jenkins-slave image on the slave Docker host.
+                            - The jenkins-slave container is, actually, the ubuntu image with the SSHD server installed.
+                            - The Jenkins master automatically adds the created agent to the agent list (same as what we did manually in the Setting agents section).
+                            - The agent is accessed using the SSH communication protocol to perform the build.
+                            - After the build, the master stops and removes the slave container.
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
